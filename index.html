@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hod Clearance Consultancy</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #F6F3EC 0%, #EFEAE0 100%);
+      color: #22262B;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #14213D 0%, #0D1A30 100%);
+      color: white;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(20, 33, 61, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: slideDown 0.6s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    header .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .branding {
+      flex: 1;
+    }
+
+    header .subtitle {
+      font-style: italic;
+      color: #D6B65A;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    header .title {
+      font-family: 'Source Serif 4', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+    }
+
+    header button {
+      background: transparent;
+      border: 2px solid #D6B65A;
+      color: #D6B65A;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    header button:hover {
+      background: #D6B65A;
+      color: #14213D;
+      transform: scale(1.05);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Progress Steps */
+    .progress-container {
+      margin-bottom: 32px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .progress-steps {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      flex: 1;
+      height: 4px;
+      background: #D8D2C4;
+      border-radius: 2px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step.active {
+      background: #14213D;
+      box-shadow: 0 0 12px rgba(20, 33, 61, 0.3);
+    }
+
+    .step.done {
+      background: #B7902F;
+    }
+
+    .step::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .step-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #5B5F66;
+      font-weight: 600;
+    }
+
+    .step-label {
+      transition: all 0.3s ease;
+    }
+
+    .step-label.active {
+      color: #14213D;
+      transform: scale(1.05);
+    }
+
+    /* Form Panel */
+    .form-panel {
+      background: white;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+      animation: slideInUp 0.5s ease;
+      min-height: 400px;
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-panel.fade-out {
+      animation: slideOutDown 0.3s ease forwards;
+    }
+
+    @keyframes slideOutDown {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(30px); }
+    }
+
+    /* Step Icon */
+    .step-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      animation: bounceIn 0.6s ease;
+    }
+
+    @keyframes bounceIn {
+      0%, 100% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #14213D;
+      margin-bottom: 24px;
+      font-family: 'Source Serif 4', serif;
+    }
+
+    /* Form Field */
+    .field {
+      margin-bottom: 22px;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .field:nth-child(1) { animation-delay: 0.1s; }
+    .field:nth-child(2) { animation-delay: 0.2s; }
+    .field:nth-child(3) { animation-delay: 0.3s; }
+    .field:nth-child(4) { animation-delay: 0.4s; }
+    .field:nth-child(5) { animation-delay: 0.5s; }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #14213D;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .field label .required {
+      color: #9C3B2E;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #D8D2C4;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #22262B;
+      background: white;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #B7902F;
+      box-shadow: 0 0 0 4px rgba(183, 144, 47, 0.1);
+      background: #FFFBF5;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Pills/Buttons */
+    .pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 10px 18px;
+      border: 2px solid #D8D2C4;
+      background: white;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #22262B;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pill:hover {
+      border-color: #B7902F;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(183, 144, 47, 0.15);
+    }
+
+    .pill.selected {
+      background: linear-gradient(135deg, #14213D 0%, #0D1A30 100%);
+      border-color: #14213D;
+      color: white;
+      box-shadow: 0 6px 20px rgba(20, 33, 61, 0.25);
+    }
+
+    .pill::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .pill:active::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: linear-gradient(135deg, #0D1A30 0%, #14213D 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      border-left: 4px solid #D6B65A;
+      animation: slideInLeft 0.5s ease;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Checkbox */
+    .checkbox-group label {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      cursor: pointer;
+      margin-bottom: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-group label:hover {
+      background: #F6F3EC;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: #B7902F;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .checkbox-group input[type="checkbox"]:checked {
+      transform: scale(1.1);
+    }
+
+    .checkbox-group span {
+      font-size: 13px;
+      color: #22262B;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Policy Box */
+    .policy-box {
+      background: linear-gradient(135deg, rgba(20, 33, 61, 0.05) 0%, rgba(183, 144, 47, 0.05) 100%);
+      border: 2px solid #D8D2C4;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .policy-box .subtitle {
+      color: #B7902F;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .policy-box p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #5B5F66;
+    }
+
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid #D8D2C4;
+      animation: fadeInUp 0.6s ease 0.6s both;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.4s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-back {
+      background: white;
+      border: 2px solid #D8D2C4;
+      color: #22262B;
+    }
+
+    .btn-back:hover {
+      background: #F6F3EC;
+      border-color: #B7902F;
+      transform: translateX(-3px);
+    }
+
+    .btn-back:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #14213D 0%, #0D1A30 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(20, 33, 61, 0.2);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(20, 33, 61, 0.3);
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #B7902F 0%, #9C6E1F 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(183, 144, 47, 0.2);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(183, 144, 47, 0.3);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Error Message */
+    .error {
+      color: #9C3B2E;
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: rgba(156, 59, 46, 0.1);
+      border-left: 3px solid #9C3B2E;
+      border-radius: 4px;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Success Message */
+    .success-message {
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .stamp {
+      display: inline-block;
+      border: 4px solid #2F6E4E;
+      color: #2F6E4E;
+      font-family: 'Source Serif 4', serif;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      transform: rotate(-8deg);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: stampPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes stampPulse {
+      0% { opacity: 0; transform: rotate(-8deg) scale(0.3); }
+      100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+    }
+
+    .success-message h2 {
+      font-family: 'Source Serif 4', serif;
+      color: #14213D;
+      margin-top: 24px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .success-message p {
+      color: #5B5F66;
+      max-width: 420px;
+      margin: 12px auto 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .success-message button {
+      margin-top: 26px;
+    }
+
+    /* Admin */
+    .admin-login {
+      max-width: 400px;
+      margin: 0 auto;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .admin-title {
+      font-family: 'Source Serif 4', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #14213D;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .admin-subtitle {
+      text-align: center;
+      color: #5B5F66;
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    /* Footer */
+    footer {
+      background: #14213D;
+      color: white;
+      padding: 32px 20px;
+      margin-top: 60px;
+      text-align: center;
+      border-top: 2px solid #B7902F;
+    }
+
+    footer a {
+      color: #D6B65A;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .contact-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #B7902F;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .contact-button:hover {
+      background: #D6B65A;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(183, 144, 47, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header .content {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .container {
+        padding: 24px 16px;
+      }
+
+      .form-panel {
+        padding: 24px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .step-label {
+        font-size: 10px;
+      }
+    }
+
+    .hidden { display: none; }
+    .loading { opacity: 0.6; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="content">
+      <div class="branding">
+        <div class="subtitle">Professional Student Support</div>
+        <div class="title">Hod Clearance Consultancy</div>
+      </div>
+      <button onclick="toggleView()">ADMIN</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="studentView"></div>
+    <div id="adminView" class="hidden"></div>
+  </div>
+
+  <footer>
+    <p style="margin-bottom: 12px;">Need assistance?</p>
+    <a class="contact-button" href="https://wa.me/2348115876512" target="_blank">
+      <i class="fab fa-whatsapp"></i> WhatsApp Us
+    </a>
+    <p style="font-size: 12px; margin-top: 16px; opacity: 0.8;">Hod Clearance Consultancy © 2026</p>
+  </footer>
+
+  <script>
+    const ADMIN_PASSCODE = "Tolu/2003.com";
+    const ADMIN_EMAIL = "anonymouspinpop@gmail.com";
+    const DEPARTMENTS = [
+      "Accounting", "Business Administration", "Computer Science", "Criminology",
+      "Cyber Security", "Architecture", "Biochemistry", "Economics",
+      "Industrial Chemistry", "International Relations", "Microbiology",
+      "Political Science", "Psychology", "Software Engineering", "Other",
+    ];
+    const COLLEGES = [
+      "College of Arts, Social and Management Sciences (CASMAS)",
+      "College of Communication and Media Studies (COCOMS)",
+      "College of Environmental Sciences (COLENSMA)",
+      "College of Pure and Applied Sciences (COPAS)",
+      "College of Computing and Information Sciences (COCIS)",
+      "Other",
+    ];
+    const LEVELS = ["100", "200", "300", "400", "Final Year"];
+    const STEP_ICONS = ["👤", "📋", "📁", "✅"];
+    const STEP_TITLES = ["Personal & Academic", "Clearance Status", "Documents", "Declaration"];
+    const DECLARATIONS = [
+      "I certify that all information provided in this application is true, accurate, and complete to the best of my knowledge.",
+      "I certify that all documents in the linked folder are genuine, belong to me, and have not been altered or falsified.",
+      "I understand this is an independent student support service and is not an official service of Caleb University.",
+      "I understand that all clearance approvals and administrative decisions remain solely at the discretion of Caleb University.",
+      "I understand that submission of this application does not guarantee approval, completion, or successful clearance.",
+      "I understand my application and documents will be reviewed before payment instructions are issued.",
+      "I authorize communication regarding my application through the phone number, WhatsApp number, or email provided.",
+      "I have read, understood, and agree to abide by the terms and conditions of this service.",
+    ];
+
+    let currentView = "student";
+    let currentStep = 0;
+    let furthest = 0;
+    let adminAuthed = false;
+    let submissions = [];
+
+    const emptyForm = () => ({
+      fullName: "", matricNumber: "", department: "", otherDepartment: "",
+      college: "", otherCollege: "", level: "", whatsapp: "", altPhone: "", email: "",
+      isFinalYear: "", reviewStartLevel: "", needsPrevLevelHelp: "",
+      prevLevels: [], previouslySubmitted: "", outstandingIssues: "",
+      hasAllDocuments: "", driveLink: "", driveConfirmed: false,
+      declarations: Array(DECLARATIONS.length).fill(false), policyRead: "",
+    });
+
+    let form = emptyForm();
+
+    function toggleView() {
+      currentView = currentView === "student" ? "admin" : "student";
+      adminAuthed = false;
+      render();
+    }
+
+    async function saveToStorage(data) {
+      const id = `submission:${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const payload = { ...data, id, submittedAt: new Date().toISOString(), status: "New" };
+      try {
+        await window.storage.set(id, JSON.stringify(payload), true);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    async function loadFromStorage() {
+      try {
+        const list = await window.storage.list("submission:", true);
+        const keys = (list && list.keys) || [];
+        submissions = [];
+        for (const k of keys) {
+          try {
+            const r = await window.storage.get(k, true);
+            if (r && r.value) submissions.push(JSON.parse(r.value));
+          } catch (e) {}
+        }
+        submissions.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+      } catch {}
+    }
+
+    function renderStudentForm() {
+      let html = `
+        <div class="progress-container">
+          <div class="progress-steps">
+            ${STEP_TITLES.map((_, i) => `<div class="step ${i === currentStep ? 'active' : i < furthest ? 'done' : ''}"></div>`).join('')}
+          </div>
+          <div class="step-labels">
+            ${STEP_TITLES.map((label, i) => `<div class="step-label ${i === currentStep ? 'active' : ''}">${label}</div>`).join('')}
+          </div>
+        </div>
+
+        <div class="form-panel">
+          <div class="step-icon">${STEP_ICONS[currentStep]}</div>
+          <h2 class="step-title">${STEP_TITLES[currentStep]}</h2>
+      `;
+
+      if (currentStep === 0) {
+        html += `
+          <div class="field">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" placeholder="As it appears on university records" value="${form.fullName}">
+          </div>
+          <div class="field">
+            <label>Matric Number <span class="required">*</span></label>
+            <input type="text" id="matricNumber" placeholder="e.g. 23/12833" value="${form.matricNumber}">
+          </div>
+          <div class="field">
+            <label>Department <span class="required">*</span></label>
+            <select id="department">
+              <option value="">Select Department…</option>
+              ${DEPARTMENTS.map(d => `<option value="${d}" ${form.department === d ? 'selected' : ''}>${d}</option>`).join('')}
+            </select>
+            ${form.department === "Other" ? `<div style="margin-top: 8px;"><input type="text" id="otherDepartment" placeholder="Specify department" value="${form.otherDepartment}"></div>` : ''}
+          </div>
+          <div class="field">
+            <label>College <span class="required">*</span></label>
+            <select id="college">
+              <option value="">Select College…</option>
+              ${COLLEGES.map(c => `<option value="${c}" ${form.college === c ? 'selected' : ''}>${c}</option>`).join('')}
+            </select>
+            ${form.college === "Other" ? `<div style="margin-top: 8px;"><input type="text" id="otherCollege" placeholder="Specify college" value="${form.otherCollege}"></div>` : ''}
+          </div>
+          <div class="field">
+            <label>Level <span class="required">*</span></label>
+            <div class="pills" id="levelPills">${LEVELS.map(l => `<button type="button" class="pill ${form.level === l ? 'selected' : ''}" data-level="${l}">${l}</button>`).join('')}</div>
+          </div>
+          <div class="field">
+            <label>WhatsApp Number <span class="required">*</span></label>
+            <input type="text" id="whatsapp" placeholder="+234…" value="${form.whatsapp}">
+          </div>
+          <div class="field">
+            <label>Alternative Phone Number <span class="required">*</span></label>
+            <input type="text" id="altPhone" placeholder="+234…" value="${form.altPhone}">
+          </div>
+          <div class="field">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="you@example.com" value="${form.email}">
+          </div>
+        `;
+      } else if (currentStep === 1) {
+        html += `
+          <div class="field">
+            <label>Are you a final year student? <span class="required">*</span></label>
+            <div class="pills" id="finalYearPills">
+              <button type="button" class="pill ${form.isFinalYear === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.isFinalYear === 'No' ? 'selected' : ''}" data-value="No">No</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>From which level should we begin reviewing your clearance? <span class="required">*</span></label>
+            <div class="pills" id="reviewLevelPills">${LEVELS.map(l => `<button type="button" class="pill ${form.reviewStartLevel === l ? 'selected' : ''}" data-level="${l}">${l}</button>`).join('')}</div>
+          </div>
+          <div class="field">
+            <label>Do you require additional clearance assistance for previous level(s)? <span class="required">*</span></label>
+            <div class="pills" id="prevHelpPills">
+              <button type="button" class="pill ${form.needsPrevLevelHelp === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.needsPrevLevelHelp === 'No' ? 'selected' : ''}" data-value="No">No</button>
+            </div>
+          </div>
+          ${form.needsPrevLevelHelp === 'Yes' ? `
+            <div class="field">
+              <label>Which previous level(s)? <span class="required">*</span></label>
+              <div class="pills" id="prevLevelsPills">${LEVELS.map(l => `<button type="button" class="pill ${form.prevLevels.includes(l) ? 'selected' : ''}" data-level="${l}">${l}</button>`).join('')}</div>
+            </div>
+          ` : ''}
+          <div class="field">
+            <label>Have you previously submitted clearance documents? <span class="required">*</span></label>
+            <div class="pills" id="submittedPills">
+              <button type="button" class="pill ${form.previouslySubmitted === 'No' ? 'selected' : ''}" data-value="No">No</button>
+              <button type="button" class="pill ${form.previouslySubmitted === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.previouslySubmitted === 'Partially' ? 'selected' : ''}" data-value="Partially">Partially</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Outstanding issues</label>
+            <textarea id="outstandingIssues" placeholder="e.g. missing receipt, outstanding fees, incomplete documentation">${form.outstandingIssues}</textarea>
+          </div>
+          <div class="field">
+            <label>Do you currently have all required documents? <span class="required">*</span></label>
+            <div class="pills" id="docsPills">
+              <button type="button" class="pill ${form.hasAllDocuments === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.hasAllDocuments === 'No' ? 'selected' : ''}" data-value="No">No</button>
+              <button type="button" class="pill ${form.hasAllDocuments === 'Some documents are still unavailable' ? 'selected' : ''}" data-value="Some documents are still unavailable">Some</button>
+            </div>
+          </div>
+        `;
+      } else if (currentStep === 2) {
+        html += `
+          <div class="info-box">
+            📁 Create one Google Drive folder, upload all documents, then share with <strong>${ADMIN_EMAIL}</strong> (Viewer access).
+          </div>
+          <div class="field">
+            <label>Google Drive Folder Link <span class="required">*</span></label>
+            <input type="text" id="driveLink" placeholder="https://drive.google.com/drive/folders/…" value="${form.driveLink}">
+          </div>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="driveConfirmed" ${form.driveConfirmed ? 'checked' : ''}>
+              <span>I confirm all documents are uploaded and folder is shared with ${ADMIN_EMAIL}.</span>
+            </label>
+          </div>
+        `;
+      } else if (currentStep === 3) {
+        html += `
+          <div class="policy-box">
+            <div class="subtitle">💰 Service Fee</div>
+            <p><strong>Standard:</strong> ₦50,000 | <strong>Additional level:</strong> ₦10,000</p>
+            <p style="margin-top: 10px; font-size: 12px;">Payment only after approval. You'll be contacted with exact amount and instructions.</p>
+          </div>
+          <div class="checkbox-group">
+            ${DECLARATIONS.map((d, i) => `
+              <label>
+                <input type="checkbox" id="decl${i}" ${form.declarations[i] ? 'checked' : ''}>
+                <span>${d}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div class="field">
+            <label>Have you read the policy? <span class="required">*</span></label>
+            <div class="pills" id="policyPills">
+              <button type="button" class="pill ${form.policyRead === 'Yes I have' ? 'selected' : ''}" data-value="Yes I have">Yes, I have</button>
+              <button type="button" class="pill ${form.policyRead === 'No' ? 'selected' : ''}" data-value="No">No</button>
+            </div>
+          </div>
+        `;
+      }
+
+      html += `<div id="error" class="error" style="display:none;"></div>`;
+      html += `<div class="button-group">
+        <button class="btn btn-back" ${currentStep === 0 ? 'disabled' : ''} onclick="previousStep()">← Back</button>
+        ${currentStep < 3 ? `<button class="btn btn-primary" onclick="nextStep()">Continue →</button>` : `<button class="btn btn-submit" onclick="submitForm()">Submit Application</button>`}
+      </div>`;
+      html += `</div>`;
+
+      document.getElementById("studentView").innerHTML = html;
+
+      // Bind events
+      if (currentStep === 0) {
+        document.getElementById("fullName").addEventListener("change", e => form.fullName = e.target.value);
+        document.getElementById("matricNumber").addEventListener("change", e => form.matricNumber = e.target.value);
+        document.getElementById("department").addEventListener("change", e => { form.department = e.target.value; render(); });
+        if (document.getElementById("otherDepartment")) document.getElementById("otherDepartment").addEventListener("change", e => form.otherDepartment = e.target.value);
+        document.getElementById("college").addEventListener("change", e => { form.college = e.target.value; render(); });
+        if (document.getElementById("otherCollege")) document.getElementById("otherCollege").addEventListener("change", e => form.otherCollege = e.target.value);
+        document.getElementById("whatsapp").addEventListener("change", e => form.whatsapp = e.target.value);
+        document.getElementById("altPhone").addEventListener("change", e => form.altPhone = e.target.value);
+        document.getElementById("email").addEventListener("change", e => form.email = e.target.value);
+        
+        document.querySelectorAll("#levelPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.level = e.target.dataset.level; render(); });
+        });
+      } else if (currentStep === 1) {
+        document.getElementById("outstandingIssues").addEventListener("change", e => form.outstandingIssues = e.target.value);
+        
+        document.querySelectorAll("#finalYearPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.isFinalYear = e.target.dataset.value; render(); });
+        });
+        
+        document.querySelectorAll("#reviewLevelPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.reviewStartLevel = e.target.dataset.level; render(); });
+        });
+        
+        document.querySelectorAll("#prevHelpPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.needsPrevLevelHelp = e.target.dataset.value; render(); });
+        });
+        
+        document.querySelectorAll("#prevLevelsPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { toggleLevel(e.target.dataset.level); render(); });
+        });
+        
+        document.querySelectorAll("#submittedPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.previouslySubmitted = e.target.dataset.value; render(); });
+        });
+        
+        document.querySelectorAll("#docsPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.hasAllDocuments = e.target.dataset.value; render(); });
+        });
+      } else if (currentStep === 2) {
+        document.getElementById("driveLink").addEventListener("change", e => form.driveLink = e.target.value);
+        document.getElementById("driveConfirmed").addEventListener("change", e => form.driveConfirmed = e.target.checked);
+      } else if (currentStep === 3) {
+        DECLARATIONS.forEach((_, i) => {
+          const el = document.getElementById(`decl${i}`);
+          if (el) el.addEventListener("change", e => { form.declarations[i] = e.target.checked; });
+        });
+        
+        document.querySelectorAll("#policyPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.policyRead = e.target.dataset.value; render(); });
+        });
+      }
+    }
+
+    function toggleLevel(level) {
+      if (form.prevLevels.includes(level)) {
+        form.prevLevels = form.prevLevels.filter(l => l !== level);
+      } else {
+        form.prevLevels = [...form.prevLevels, level];
+      }
+    }
+
+    function validateStep() {
+      if (currentStep === 0) {
+        if (!form.fullName || !form.matricNumber || !form.department || !form.college || !form.level || !form.whatsapp || !form.altPhone || !form.email)
+          return "Please fill every required field.";
+        if (form.department === "Other" && !form.otherDepartment) return "Please specify your department.";
+        if (form.college === "Other" && !form.otherCollege) return "Please specify your college.";
+      }
+      if (currentStep === 1) {
+        if (!form.isFinalYear || !form.reviewStartLevel || !form.needsPrevLevelHelp || !form.previouslySubmitted || !form.hasAllDocuments)
+          return "Please answer every question.";
+        if (form.needsPrevLevelHelp === "Yes" && form.prevLevels.length === 0) return "Select at least one previous level.";
+      }
+      if (currentStep === 2) {
+        if (!form.driveLink) return "Please paste your Google Drive folder link.";
+        if (!form.driveConfirmed) return "Please confirm your folder is shared.";
+      }
+      return "";
+    }
+
+    function nextStep() {
+      const err = validateStep();
+      if (err) {
+        const errorEl = document.getElementById("error");
+        errorEl.textContent = err;
+        errorEl.style.display = "block";
+        return;
+      }
+      document.getElementById("error").style.display = "none";
+      currentStep = Math.min(currentStep + 1, 3);
+      furthest = Math.max(furthest, currentStep);
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function previousStep() {
+      currentStep = Math.max(currentStep - 1, 0);
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function submitForm() {
+      if (form.declarations.some(d => !d) || form.policyRead !== "Yes I have") {
+        const errorEl = document.getElementById("error");
+        errorEl.textContent = "Please check all declarations and confirm you've read the policy.";
+        errorEl.style.display = "block";
+        return;
+      }
+
+      const btn = event.target;
+      btn.disabled = true;
+      btn.innerHTML = "Submitting…";
+
+      const saved = await saveToStorage(form);
+      
+      if (!saved) {
+        const errorEl = document.getElementById("error");
+        errorEl.textContent = "Something went wrong. Please try again.";
+        errorEl.style.display = "block";
+        btn.disabled = false;
+        btn.innerHTML = "Submit Application";
+        return;
+      }
+
+      form = emptyForm();
+      currentStep = 0;
+      furthest = 0;
+      renderSuccess();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSuccess() {
+      document.getElementById("studentView").innerHTML = `
+        <div class="success-message">
+          <div class="stamp">✓ RECEIVED</div>
+          <h2>Application Received!</h2>
+          <p>Thank you for submitting your clearance application. We'll review your documents and reach out via WhatsApp or email within 24 hours with next steps.</p>
+          <p style="font-size: 12px; margin-top: 12px; color: #5B5F66;"><strong>Important:</strong> Do not make any payment until you've been contacted with the exact amount and payment instructions.</p>
+          <button class="btn btn-primary" onclick="currentStep = 0; furthest = 0; form = emptyForm(); render(); window.scrollTo({top: 0, behavior: 'smooth'});" style="margin-top: 20px;">Submit Another Application</button>
+        </div>
+      `;
+    }
+
+    function render() {
+      if (currentView === "student") {
+        document.getElementById("studentView").classList.remove("hidden");
+        document.getElementById("adminView").classList.add("hidden");
+        renderStudentForm();
+      } else {
+        renderAdmin();
+      }
+    }
+
+    function renderAdmin() {
+      if (!adminAuthed) {
+        document.getElementById("studentView").classList.add("hidden");
+        document.getElementById("adminView").classList.remove("hidden");
+        document.getElementById("adminView").innerHTML = `
+          <div class="admin-login">
+            <div class="admin-title">Admin Access</div>
+            <div class="admin-subtitle">Enter your passcode</div>
+            <input type="password" id="adminPass" placeholder="Enter passcode" style="margin-bottom: 16px;">
+            <div id="authError" class="error" style="display:none;"></div>
+            <button class="btn btn-submit" onclick="checkAdminPass()" style="width: 100%;">Access Dashboard</button>
+          </div>
+        `;
+        document.getElementById("adminPass").addEventListener("keypress", e => { if (e.key === "Enter") checkAdminPass(); });
+      }
+    }
+
+    function checkAdminPass() {
+      const pass = document.getElementById("adminPass").value;
+      if (pass === ADMIN_PASSCODE) {
+        adminAuthed = true;
+        loadFromStorage().then(() => renderAdminDash());
+      } else {
+        const errorEl = document.getElementById("authError");
+        errorEl.textContent = "Incorrect passcode.";
+        errorEl.style.display = "block";
+      }
+    }
+
+    function renderAdminDash() {
+      const depts = [...new Set(submissions.map(r => r.department))].filter(Boolean);
+      const stats = {
+        total: submissions.length,
+        finalYear: submissions.filter(r => r.isFinalYear === "Yes").length,
+        new: submissions.filter(r => r.status === "New").length,
+        approved: submissions.filter(r => r.status === "Approved").length,
+      };
+
+      let html = `
+        <div style="animation: fadeInUp 0.6s ease;">
+          <h2 class="step-title" style="margin-bottom: 24px;">Dashboard</h2>
+          
+          <div class="progress-steps" style="margin-bottom: 24px;">
+            <div style="flex: 1; background: #2F6E4E; border-radius: 8px; padding: 16px; text-align: center; color: white; margin-right: 8px;">
+              <div style="font-size: 24px; font-weight: 700;">${stats.total}</div>
+              <div style="font-size: 12px; margin-top: 4px;">Total</div>
+            </div>
+            <div style="flex: 1; background: #B7902F; border-radius: 8px; padding: 16px; text-align: center; color: white; margin-right: 8px;">
+              <div style="font-size: 24px; font-weight: 700;">${stats.new}</div>
+              <div style="font-size: 12px; margin-top: 4px;">New</div>
+            </div>
+            <div style="flex: 1; background: #14213D; border-radius: 8px; padding: 16px; text-align: center; color: white;">
+              <div style="font-size: 24px; font-weight: 700;">${stats.approved}</div>
+              <div style="font-size: 12px; margin-top: 4px;">Approved</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <input type="text" id="search" placeholder="Search name or matric no." style="width: 100%; padding: 10px; margin-bottom: 8px; border: 2px solid #D8D2C4; border-radius: 8px;">
+            <button class="btn btn-primary" onclick="loadFromStorage().then(() => renderAdminDash());" style="width: 100%;">🔄 Refresh</button>
+          </div>
+      `;
+
+      const search = (document.getElementById("search") || {}).value || "";
+      const filtered = submissions.filter(r =>
+        !search || `${r.fullName} ${r.matricNumber}`.toLowerCase().includes(search.toLowerCase())
+      );
+
+      html += `<div class="form-panel" style="padding: 0;">`;
+      if (filtered.length === 0) {
+        html += `<div style="padding: 24px; text-align: center; color: #5B5F66;">No submissions yet.</div>`;
+      } else {
+        filtered.forEach(r => {
+          const statusColor = r.status === "New" ? "#9C3B2E" : r.status === "Approved" ? "#2F6E4E" : "#B7902F";
+          html += `
+            <div style="padding: 16px; border-bottom: 1px solid #D8D2C4; cursor: pointer; transition: all 0.3s ease;" onclick="renderSubmissionDetail('${r.id}')" onmouseover="this.style.background='#F6F3EC'" onmouseout="this.style.background='white'">
+              <div style="font-weight: 600; color: #14213D;">${r.fullName}</div>
+              <div style="font-size: 12px; color: #5B5F66; margin-top: 4px;">${r.matricNumber} • ${r.department} • ${r.level}</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <div style="font-size: 11px; color: #5B5F66;">${new Date(r.submittedAt).toLocaleDateString()}</div>
+                <span style="padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; color: white; background: ${statusColor};">${r.status || 'New'}</span>
+              </div>
+            </div>
+          `;
+        });
+      }
+      html += `</div></div>`;
+
+      document.getElementById("adminView").innerHTML = html;
+      if (document.getElementById("search")) {
+        document.getElementById("search").addEventListener("input", () => renderAdminDash());
+      }
+    }
+
+    function renderSubmissionDetail(id) {
+      const row = submissions.find(r => r.id === id);
+      if (!row) return;
+
+      let html = `
+        <button class="btn btn-back" onclick="renderAdminDash();" style="margin-bottom: 16px;">← Back</button>
+        <div class="form-panel">
+          <h2 class="step-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <span>${row.fullName}</span>
+            <span style="padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; color: white; background: ${row.status === "New" ? "#9C3B2E" : row.status === "Approved" ? "#2F6E4E" : "#B7902F"};">${row.status || 'New'}</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+            <div><div style="font-size: 11px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Matric</div><div>${row.matricNumber}</div></div>
+            <div><div style="font-size: 11px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Level</div><div>${row.level}</div></div>
+            <div><div style="font-size: 11px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Department</div><div>${row.department}</div></div>
+            <div><div style="font-size: 11px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Email</div><div>${row.email}</div></div>
+            <div><div style="font-size: 11px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">WhatsApp</div><div>${row.whatsapp}</div></div>
+            <div><div style="font-size: 11px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Submitted</div><div>${new Date(row.submittedAt).toLocaleString()}</div></div>
+          </div>
+
+          ${row.driveLink ? `<div class="info-box" style="margin-bottom: 20px;"><a href="${row.driveLink}" target="_blank" style="color: white;">📁 View Documents</a></div>` : ''}
+
+          <div style="border-top: 2px solid #D8D2C4; padding-top: 16px; margin-top: 16px;">
+            <div style="font-size: 12px; color: #5B5F66; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;">Update Status</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              ${["New", "In Review", "Approved", "On Hold"].map(s => `
+                <button class="pill" style="border-color: ${row.status === s ? '#14213D' : '#D8D2C4'}; background: ${row.status === s ? '#14213D' : 'white'}; color: ${row.status === s ? 'white' : '#22262B'};" onclick="updateStatus('${id}', '${s}'); renderSubmissionDetail('${id}');">${s}</button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("adminView").innerHTML = html;
+    }
+
+    async function updateStatus(id, status) {
+      const idx = submissions.findIndex(r => r.id === id);
+      if (idx !== -1) {
+        submissions[idx].status = status;
+        await window.storage.set(id, JSON.stringify(submissions[idx]), true);
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
