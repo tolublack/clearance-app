@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caleb University Clearance File</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: #F6F3EC; color: #22262B; }
+    
+    :root {
+      --navy: #14213D;
+      --navyDeep: #0D1A30;
+      --paper: #F6F3EC;
+      --paperDim: #EFEAE0;
+      --ink: #22262B;
+      --inkSoft: #5B5F66;
+      --brass: #B7902F;
+      --brassLight: #D6B65A;
+      --green: #2F6E4E;
+      --rust: #9C3B2E;
+      --line: #D8D2C4;
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .branding {
+      font-family: 'Source Serif 4', serif;
+    }
+
+    header .branding .subtitle {
+      font-style: italic;
+      color: var(--brassLight);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    header .branding .title {
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    header button {
+      background: transparent;
+      border: 1px solid var(--brassLight);
+      color: var(--brassLight);
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .container { max-width: 640px; margin: 0 auto; padding: 28px 16px 60px; }
+
+    .folder-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 0;
+    }
+
+    .folder-tabs button {
+      flex: 1;
+      padding: 10px 6px;
+      text-align: center;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--paperDim);
+      color: var(--inkSoft);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .folder-tabs button.active {
+      background: var(--navy);
+      color: white;
+      border-bottom-color: var(--navy);
+    }
+
+    .folder-tabs button.done {
+      background: var(--brassLight);
+      color: var(--navy);
+    }
+
+    .form-panel {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 0 8px 8px 8px;
+      padding: 24px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .field label .required {
+      color: var(--rust);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--brass);
+      box-shadow: 0 0 0 2px rgba(183, 144, 47, 0.33);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1.5px solid var(--line);
+      background: white;
+      color: var(--ink);
+      transition: all 0.15s ease;
+    }
+
+    .pill.selected {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: white;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      margin-top: 3px;
+      flex-shrink: 0;
+      accent-color: var(--navy);
+    }
+
+    .checkbox-group span {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .info-box {
+      background: var(--paperDim);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      font-size: 12.5px;
+      color: var(--inkSoft);
+      line-height: 1.6;
+    }
+
+    .policy-box {
+      background: var(--navyDeep);
+      color: white;
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .policy-box .subtitle {
+      font-family: 'Source Serif 4', serif;
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: var(--brassLight);
+    }
+
+    .policy-box p {
+      font-size: 12.5px;
+      line-height: 1.7;
+      opacity: 0.9;
+    }
+
+    .error {
+      color: var(--rust);
+      font-size: 12.5px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    button[type="button"],
+    button[type="submit"] {
+      padding: 10px 26px;
+      border: 1.5px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 4px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button[type="button"].primary,
+    button[type="submit"].primary {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    button[type="button"].submit,
+    button[type="submit"] {
+      background: var(--brass);
+      color: white;
+      border-color: var(--brass);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .hidden { display: none; }
+
+    .success-message {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .stamp {
+      display: inline-block;
+      border: 3px solid var(--green);
+      color: var(--green);
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transform: rotate(-4deg);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: stampIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes stampIn {
+      from { opacity: 0; transform: rotate(-4deg) scale(1.4); }
+      to { opacity: 1; transform: rotate(-4deg) scale(1); }
+    }
+
+    .success-message h2 {
+      font-family: 'Source Serif 4', serif;
+      color: var(--navy);
+      margin-top: 28px;
+      font-size: 22px;
+    }
+
+    .success-message p {
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: var(--inkSoft);
+      max-width: 420px;
+      margin: 10px auto 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .success-message button {
+      margin-top: 28px;
+      padding: 10px 22px;
+      background: transparent;
+      border: 1.5px solid var(--navy);
+      color: var(--navy);
+      border-radius: 4px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .admin-login { max-width: 340px; margin: 60px auto; text-align: center; }
+    .admin-login .passcode-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--inkSoft); margin-bottom: 6px; letter-spacing: 1px; }
+    .admin-login input { margin-bottom: 12px; }
+    .admin-login button { width: 100%; margin-top: 12px; }
+    .admin-login .note { font-size: 11px; color: var(--inkSoft); margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; }
+
+    .stats { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    .stat-card { flex: 1 1 100px; background: white; border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; }
+    .stat-card .number { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600; color: var(--navy); }
+    .stat-card .label { font-size: 11px; color: var(--inkSoft); font-family: 'IBM Plex Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .filters { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+    .filters input, .filters select { max-width: 220px; }
+
+    .submissions-list { background: white; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .submission-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--line); cursor: pointer; }
+    .submission-row:first-child { border-top: none; }
+    .submission-row .name { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 13.5px; color: var(--ink); }
+    .submission-row .meta { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--inkSoft); margin-top: 2px; }
+
+    .status-pill {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      border: 1px solid;
+      border-radius: 12px;
+      padding: 3px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-new { color: var(--rust); border-color: var(--rust); }
+    .status-review { color: var(--brass); border-color: var(--brass); }
+    .status-approved { color: var(--green); border-color: var(--green); }
+    .status-hold { color: var(--inkSoft); border-color: var(--inkSoft); }
+
+    .detail-view { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 22px; }
+    .detail-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+    .detail-name { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 600; color: var(--navy); }
+    .detail-matric { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--inkSoft); margin-top: 4px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+    .detail-field { margin-bottom: 10px; }
+    .detail-label { font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; color: var(--inkSoft); text-transform: uppercase; letter-spacing: 0.5px; }
+    .detail-value { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--ink); }
+
+    .hint { font-size: 11.5px; color: var(--inkSoft); margin-top: 4px; }
+
+    .back-btn { background: none; border: none; color: var(--navy); font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 16px; }
+
+    @media (max-width: 600px) {
+      .detail-grid { grid-template-columns: 1fr; }
+      .filters { flex-direction: column; }
+      .filters input, .filters select { width: 100%; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="branding">
+      <div class="subtitle">Professional Student Support</div>
+      <div class="title">Hod Clearance Consultancy</div>
+    </div>
+    <button onclick="toggleView()">ADMIN</button>
+  </header>
+
+  <div class="container">
+    <div id="studentForm"></div>
+    <div id="adminPanel" class="hidden"></div>
+  </div>
+
+  <script>
+    const ADMIN_EMAIL = "anonymouspinpop@gmail.com";
+    const ADMIN_PASSCODE = "Tolu/2003.com";
+    const DEPARTMENTS = [
+      "Accounting", "Business Administration", "Computer Science", "Criminology",
+      "Cyber Security", "Architecture", "Biochemistry", "Economics",
+      "Industrial Chemistry", "International Relations", "Microbiology",
+      "Political Science", "Psychology", "Software Engineering", "Other",
+    ];
+    const COLLEGES = [
+      "College of Arts, Social and Management Sciences (CASMAS)",
+      "College of Communication and Media Studies (COCOMS)",
+      "College of Environmental Sciences (COLENSMA)",
+      "College of Pure and Applied Sciences (COPAS)",
+      "College of Computing and Information Sciences (COCIS)",
+      "Other",
+    ];
+    const LEVELS = ["100", "200", "300", "400", "Final Year"];
+    const DECLARATIONS = [
+      "I certify that all information provided in this application is true, accurate, and complete to the best of my knowledge.",
+      "I certify that all documents in the linked folder are genuine, belong to me, and have not been altered or falsified.",
+      "I understand this is an independent student support service and is not an official service of Caleb University.",
+      "I understand that all clearance approvals and administrative decisions remain solely at the discretion of Caleb University.",
+      "I understand that submission of this application does not guarantee approval, completion, or successful clearance.",
+      "I understand my application and documents will be reviewed before payment instructions are issued.",
+      "I authorize communication regarding my application through the phone number, WhatsApp number, or email provided.",
+      "I have read, understood, and agree to abide by the terms and conditions of this service.",
+    ];
+
+    let currentView = "student";
+    let currentStep = 0;
+    let furthest = 0;
+    let adminAuthed = false;
+    let submissions = [];
+
+    const emptyForm = () => ({
+      fullName: "", matricNumber: "", department: "", otherDepartment: "",
+      college: "", otherCollege: "", level: "", whatsapp: "", altPhone: "", email: "",
+      isFinalYear: "", reviewStartLevel: "", needsPrevLevelHelp: "",
+      prevLevels: [], previouslySubmitted: "", outstandingIssues: "",
+      hasAllDocuments: "", driveLink: "", driveConfirmed: false,
+      declarations: Array(DECLARATIONS.length).fill(false), policyRead: "",
+    });
+
+    let form = emptyForm();
+
+    function toggleView() {
+      currentView = currentView === "student" ? "admin" : "student";
+      adminAuthed = false;
+      render();
+    }
+
+    async function saveToStorage(data) {
+      const id = `submission:${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const payload = { ...data, id, submittedAt: new Date().toISOString(), status: "New" };
+      try {
+        await window.storage.set(id, JSON.stringify(payload), true);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    async function loadFromStorage() {
+      try {
+        const list = await window.storage.list("submission:", true);
+        const keys = (list && list.keys) || [];
+        submissions = [];
+        for (const k of keys) {
+          try {
+            const r = await window.storage.get(k, true);
+            if (r && r.value) submissions.push(JSON.parse(r.value));
+          } catch (e) {}
+        }
+        submissions.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+      } catch {}
+    }
+
+    function renderStudentForm() {
+      const stepLabels = ["Personal & Academic", "Clearance Status", "Documents", "Declaration"];
+      const STEP_LABELS = stepLabels;
+
+      let html = `<div class="folder-tabs">`;
+      STEP_LABELS.forEach((label, i) => {
+        const isActive = i === currentStep;
+        const isDone = i < furthest;
+        const bgClass = isActive ? "active" : isDone ? "done" : "";
+        html += `<button class="${bgClass}" onclick="return false">${String(i + 1).padStart(2, '0')} ${label}</button>`;
+      });
+      html += `</div>`;
+
+      html += `<div class="form-panel">`;
+
+      if (currentStep === 0) {
+        html += `
+          <div class="field">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" placeholder="As it appears on university records" value="${form.fullName}">
+          </div>
+          <div class="field">
+            <label>Matric Number <span class="required">*</span></label>
+            <input type="text" id="matricNumber" placeholder="e.g. 23/12833" value="${form.matricNumber}" style="font-family: 'IBM Plex Mono', monospace;">
+          </div>
+          <div class="field">
+            <label>Department <span class="required">*</span></label>
+            <select id="department">
+              <option value="">Select…</option>
+              ${DEPARTMENTS.map(d => `<option value="${d}" ${form.department === d ? 'selected' : ''}>${d}</option>`).join('')}
+            </select>
+            ${form.department === "Other" ? `<div style="margin-top: 8px;"><input type="text" id="otherDepartment" placeholder="Specify department" value="${form.otherDepartment}"></div>` : ''}
+          </div>
+          <div class="field">
+            <label>College <span class="required">*</span></label>
+            <select id="college">
+              <option value="">Select…</option>
+              ${COLLEGES.map(c => `<option value="${c}" ${form.college === c ? 'selected' : ''}>${c}</option>`).join('')}
+            </select>
+            ${form.college === "Other" ? `<div style="margin-top: 8px;"><input type="text" id="otherCollege" placeholder="Specify college" value="${form.otherCollege}"></div>` : ''}
+          </div>
+          <div class="field">
+            <label>Level <span class="required">*</span></label>
+            <div class="pills" id="levelPills">${LEVELS.map(l => `<button type="button" class="pill ${form.level === l ? 'selected' : ''}" data-level="${l}">${l}</button>`).join('')}</div>
+          </div>
+          <div class="field">
+            <label>WhatsApp Number <span class="required">*</span></label>
+            <input type="text" id="whatsapp" placeholder="+234…" value="${form.whatsapp}">
+          </div>
+          <div class="field">
+            <label>Alternative Phone Number <span class="required">*</span></label>
+            <input type="text" id="altPhone" placeholder="+234…" value="${form.altPhone}">
+          </div>
+          <div class="field">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="you@example.com" value="${form.email}">
+          </div>
+        `;
+      } else if (currentStep === 1) {
+        html += `
+          <div class="field">
+            <label>Are you a final year student? <span class="required">*</span></label>
+            <div class="pills" id="finalYearPills">
+              <button type="button" class="pill ${form.isFinalYear === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.isFinalYear === 'No' ? 'selected' : ''}" data-value="No">No</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>From which level should we begin reviewing your clearance records? <span class="required">*</span></label>
+            <div class="pills" id="reviewLevelPills">${LEVELS.map(l => `<button type="button" class="pill ${form.reviewStartLevel === l ? 'selected' : ''}" data-level="${l}">${l} level</button>`).join('')}</div>
+          </div>
+          <div class="field">
+            <label>Do you require additional clearance assistance for previous level(s)? <span class="required">*</span></label>
+            <div class="pills" id="prevHelpPills">
+              <button type="button" class="pill ${form.needsPrevLevelHelp === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.needsPrevLevelHelp === 'No' ? 'selected' : ''}" data-value="No">No</button>
+            </div>
+          </div>
+          ${form.needsPrevLevelHelp === 'Yes' ? `
+            <div class="field">
+              <label>Which previous level(s)? <span class="required">*</span></label>
+              <div class="pills" id="prevLevelsPills">${LEVELS.map(l => `<button type="button" class="pill ${form.prevLevels.includes(l) ? 'selected' : ''}" data-level="${l}">${l} level</button>`).join('')}</div>
+            </div>
+          ` : ''}
+          <div class="field">
+            <label>Have you previously submitted your clearance documents for processing? <span class="required">*</span></label>
+            <div class="pills" id="submittedPills">
+              <button type="button" class="pill ${form.previouslySubmitted === 'No' ? 'selected' : ''}" data-value="No">No</button>
+              <button type="button" class="pill ${form.previouslySubmitted === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.previouslySubmitted === 'Partially' ? 'selected' : ''}" data-value="Partially">Partially</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Outstanding issues or challenges</label>
+            <textarea id="outstandingIssues" placeholder="e.g. missing receipt, outstanding fees, incomplete documentation">${form.outstandingIssues}</textarea>
+            <div class="hint">Examples: Missing payment receipt(s), Outstanding school fees, Missing clearance record(s), Incomplete documentation</div>
+          </div>
+          <div class="field">
+            <label>Do you currently have all required documents available for upload? <span class="required">*</span></label>
+            <div class="pills" id="docsPills">
+              <button type="button" class="pill ${form.hasAllDocuments === 'Yes' ? 'selected' : ''}" data-value="Yes">Yes</button>
+              <button type="button" class="pill ${form.hasAllDocuments === 'No' ? 'selected' : ''}" data-value="No">No</button>
+              <button type="button" class="pill ${form.hasAllDocuments === 'Some documents are still unavailable' ? 'selected' : ''}" data-value="Some documents are still unavailable">Some available</button>
+            </div>
+          </div>
+        `;
+      } else if (currentStep === 2) {
+        html += `
+          <div class="info-box">
+            Create one Google Drive folder, upload every required document (fee receipts, course registration forms, clearance records, admission letters, O'Level result, library card, parent forum receipt, alumni fee evidence, project binding — as applicable). Click <strong>Share</strong> on the folder and give access to <strong style="color: var(--navy);">${ADMIN_EMAIL}</strong> (Viewer access is enough), then paste the folder link below.
+          </div>
+          <div class="field">
+            <label>Google Drive Folder Link <span class="required">*</span></label>
+            <input type="text" id="driveLink" placeholder="https://drive.google.com/…" value="${form.driveLink}">
+          </div>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="driveConfirmed" ${form.driveConfirmed ? 'checked' : ''}>
+              <span>I confirm all my required documents have been uploaded and the folder has been shared with ${ADMIN_EMAIL}.</span>
+            </label>
+          </div>
+        `;
+      } else if (currentStep === 3) {
+        html += `
+          <div class="policy-box">
+            <div class="subtitle">Service Fee & Payment Policy</div>
+            <p>Standard Clearance Support Fee: <strong>₦50,000</strong>. Additional assistance for previous level(s) attracts <strong>₦10,000 per level</strong> after document review.</p>
+            <p style="margin-top: 8px;">Do not pay immediately after submitting. Your application will be reviewed first — you'll be contacted with the exact amount and payment instructions only after approval.</p>
+          </div>
+          <div class="checkbox-group">
+            ${DECLARATIONS.map((d, i) => `
+              <label>
+                <input type="checkbox" id="decl${i}" ${form.declarations[i] ? 'checked' : ''}>
+                <span>${d}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div class="field">
+            <label>Have you read and understood the Service Fee and Payment Policy above? <span class="required">*</span></label>
+            <div class="pills" id="policyPills">
+              <button type="button" class="pill ${form.policyRead === 'Yes I have' ? 'selected' : ''}" data-value="Yes I have">Yes I have</button>
+              <button type="button" class="pill ${form.policyRead === 'No' ? 'selected' : ''}" data-value="No">No</button>
+            </div>
+          </div>
+        `;
+      }
+
+      html += `<div id="error" class="error"></div>`;
+
+      html += `<div class="button-group">
+        <button type="button" ${currentStep === 0 ? 'disabled' : ''} onclick="previousStep()">Back</button>
+        ${currentStep < 3 ? `<button type="button" class="primary" onclick="nextStep()">Continue</button>` : `<button type="submit" class="submit" onclick="submitForm()">Submit File</button>`}
+      </div>`;
+
+      html += `</div>`;
+      document.getElementById("studentForm").innerHTML = html;
+
+      // Bind inputs after render
+      if (currentStep === 0) {
+        document.getElementById("fullName").addEventListener("change", e => form.fullName = e.target.value);
+        document.getElementById("matricNumber").addEventListener("change", e => form.matricNumber = e.target.value);
+        document.getElementById("department").addEventListener("change", e => { form.department = e.target.value; render(); });
+        if (document.getElementById("otherDepartment")) document.getElementById("otherDepartment").addEventListener("change", e => form.otherDepartment = e.target.value);
+        document.getElementById("college").addEventListener("change", e => { form.college = e.target.value; render(); });
+        if (document.getElementById("otherCollege")) document.getElementById("otherCollege").addEventListener("change", e => form.otherCollege = e.target.value);
+        document.getElementById("whatsapp").addEventListener("change", e => form.whatsapp = e.target.value);
+        document.getElementById("altPhone").addEventListener("change", e => form.altPhone = e.target.value);
+        document.getElementById("email").addEventListener("change", e => form.email = e.target.value);
+        
+        // Add level pill button listeners
+        document.querySelectorAll("#levelPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.level = e.target.dataset.level; render(); });
+        });
+      } else if (currentStep === 1) {
+        document.getElementById("outstandingIssues").addEventListener("change", e => form.outstandingIssues = e.target.value);
+        
+        // Final year pills
+        document.querySelectorAll("#finalYearPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.isFinalYear = e.target.dataset.value; render(); });
+        });
+        
+        // Review start level pills
+        document.querySelectorAll("#reviewLevelPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.reviewStartLevel = e.target.dataset.level; render(); });
+        });
+        
+        // Previous level help pills
+        document.querySelectorAll("#prevHelpPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.needsPrevLevelHelp = e.target.dataset.value; render(); });
+        });
+        
+        // Previous levels selection (multi)
+        document.querySelectorAll("#prevLevelsPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { toggleLevel(e.target.dataset.level); render(); });
+        });
+        
+        // Previously submitted pills
+        document.querySelectorAll("#submittedPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.previouslySubmitted = e.target.dataset.value; render(); });
+        });
+        
+        // Has all documents pills
+        document.querySelectorAll("#docsPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.hasAllDocuments = e.target.dataset.value; render(); });
+        });
+      } else if (currentStep === 2) {
+        document.getElementById("driveLink").addEventListener("change", e => form.driveLink = e.target.value);
+        document.getElementById("driveConfirmed").addEventListener("change", e => form.driveConfirmed = e.target.checked);
+      } else if (currentStep === 3) {
+        DECLARATIONS.forEach((_, i) => {
+          const el = document.getElementById(`decl${i}`);
+          if (el) el.addEventListener("change", e => { form.declarations[i] = e.target.checked; });
+        });
+        
+        // Policy read pills
+        document.querySelectorAll("#policyPills .pill").forEach(btn => {
+          btn.addEventListener("click", e => { form.policyRead = e.target.dataset.value; render(); });
+        });
+      }
+    }
+
+    function toggleLevel(level) {
+      if (form.prevLevels.includes(level)) {
+        form.prevLevels = form.prevLevels.filter(l => l !== level);
+      } else {
+        form.prevLevels = [...form.prevLevels, level];
+      }
+    }
+
+    function validateStep() {
+      if (currentStep === 0) {
+        if (!form.fullName || !form.matricNumber || !form.department || !form.college || !form.level || !form.whatsapp || !form.altPhone || !form.email)
+          return "Please fill every required field before continuing.";
+        if (form.department === "Other" && !form.otherDepartment) return "Please specify your department.";
+        if (form.college === "Other" && !form.otherCollege) return "Please specify your college.";
+      }
+      if (currentStep === 1) {
+        if (!form.isFinalYear || !form.reviewStartLevel || !form.needsPrevLevelHelp || !form.previouslySubmitted || !form.hasAllDocuments)
+          return "Please answer every required question before continuing.";
+        if (form.needsPrevLevelHelp === "Yes" && form.prevLevels.length === 0) return "Select at least one previous level.";
+      }
+      if (currentStep === 2) {
+        if (!form.driveLink) return "Please paste your Google Drive folder link.";
+        if (!form.driveConfirmed) return "Please confirm your documents are in the folder.";
+      }
+      return "";
+    }
+
+    function nextStep() {
+      const err = validateStep();
+      if (err) { document.getElementById("error").textContent = err; return; }
+      document.getElementById("error").textContent = "";
+      currentStep = Math.min(currentStep + 1, 3);
+      furthest = Math.max(furthest, currentStep);
+      render();
+    }
+
+    function previousStep() {
+      document.getElementById("error").textContent = "";
+      currentStep = Math.max(currentStep - 1, 0);
+      render();
+    }
+
+    async function submitForm() {
+      if (form.declarations.some(d => !d) || form.policyRead !== "Yes I have") {
+        document.getElementById("error").textContent = "Please check every declaration statement and confirm you've read the payment policy.";
+        return;
+      }
+      const saved = await saveToStorage(form);
+      if (!saved) { document.getElementById("error").textContent = "Something went wrong saving your submission. Please try again."; return; }
+      form = emptyForm();
+      currentStep = 0;
+      furthest = 0;
+      renderSuccess();
+    }
+
+    function renderSuccess() {
+      document.getElementById("studentForm").innerHTML = `
+        <div class="success-message">
+          <div class="stamp">Received</div>
+          <h2>Your file has been received</h2>
+          <p>We'll review your submission and reach out via WhatsApp or email with next steps. Do not make any payment until you've been contacted.</p>
+          <button onclick="currentStep = 0; furthest = 0; form = emptyForm(); render()">Submit another file</button>
+        </div>
+      `;
+    }
+
+    function renderAdmin() {
+      if (!adminAuthed) {
+        document.getElementById("adminPanel").innerHTML = `
+          <div class="admin-login">
+            <div class="passcode-label">ADMIN ACCESS</div>
+            <input type="password" id="adminPass" placeholder="Enter passcode">
+            <div id="authError" class="error"></div>
+            <button class="primary" onclick="checkAdminPass()" style="width: 100%;">Enter</button>
+            <div class="note">Admin access only</div>
+          </div>
+        `;
+        document.getElementById("adminPanel").classList.remove("hidden");
+        document.getElementById("studentForm").classList.add("hidden");
+        document.getElementById("adminPass").addEventListener("keypress", e => { if (e.key === "Enter") checkAdminPass(); });
+      }
+    }
+
+    function checkAdminPass() {
+      const pass = document.getElementById("adminPass").value;
+      if (pass === ADMIN_PASSCODE) {
+        adminAuthed = true;
+        loadFromStorage().then(() => renderAdminDash());
+      } else {
+        document.getElementById("authError").textContent = "Incorrect passcode.";
+      }
+    }
+
+    function renderAdminDash() {
+      const depts = [...new Set(submissions.map(r => r.department))].filter(Boolean);
+      const stats = {
+        total: submissions.length,
+        finalYear: submissions.filter(r => r.isFinalYear === "Yes").length,
+        new: submissions.filter(r => r.status === "New").length,
+        approved: submissions.filter(r => r.status === "Approved").length,
+      };
+
+      let html = `<div class="stats">
+        <div class="stat-card"><div class="number">${stats.total}</div><div class="label">On File</div></div>
+        <div class="stat-card"><div class="number">${stats.finalYear}</div><div class="label">Final Year</div></div>
+        <div class="stat-card"><div class="number">${stats.new}</div><div class="label">New</div></div>
+        <div class="stat-card"><div class="number">${stats.approved}</div><div class="label">Approved</div></div>
+      </div>`;
+
+      html += `<div class="filters">
+        <input type="text" id="search" placeholder="Search name or matric no." style="max-width: 220px;">
+        <select id="filterLevel" style="max-width: 130px;">
+          <option value="">All levels</option>
+          ${LEVELS.map(l => `<option value="${l}">${l} level</option>`).join('')}
+        </select>
+        <select id="filterDept" style="max-width: 200px;">
+          <option value="">All departments</option>
+          ${depts.map(d => `<option value="${d}">${d}</option>`).join('')}
+        </select>
+        <button class="primary" onclick="loadFromStorage().then(() => renderAdminDash())">Refresh</button>
+      </div>`;
+
+      html += `<div class="submissions-list">`;
+      const search = (document.getElementById("search") || {}).value || "";
+      const filterLevel = (document.getElementById("filterLevel") || {}).value || "";
+      const filterDept = (document.getElementById("filterDept") || {}).value || "";
+
+      const filtered = submissions.filter(r =>
+        (!filterLevel || r.level === filterLevel) &&
+        (!filterDept || r.department === filterDept) &&
+        (!search || `${r.fullName} ${r.matricNumber}`.toLowerCase().includes(search.toLowerCase()))
+      );
+
+      if (filtered.length === 0) {
+        html += `<div style="padding: 30px; text-align: center; color: var(--inkSoft);">No submissions match yet.</div>`;
+      } else {
+        filtered.forEach((r, i) => {
+          const statusClass = `status-${r.status.toLowerCase().replace(" ", "")}`;
+          html += `<div class="submission-row" onclick="renderSubmissionDetail('${r.id}')">
+            <div>
+              <div class="name">${r.fullName || '—'}</div>
+              <div class="meta">${r.matricNumber} · ${r.department} · ${r.level} level</div>
+            </div>
+            <span class="status-pill ${statusClass}">${r.status || 'New'}</span>
+          </div>`;
+        });
+      }
+      html += `</div>`;
+
+      document.getElementById("adminPanel").innerHTML = html;
+      document.getElementById("adminPanel").classList.remove("hidden");
+      document.getElementById("studentForm").classList.add("hidden");
+
+      document.getElementById("search").addEventListener("input", () => renderAdminDash());
+      document.getElementById("filterLevel").addEventListener("change", () => renderAdminDash());
+      document.getElementById("filterDept").addEventListener("change", () => renderAdminDash());
+    }
+
+    function renderSubmissionDetail(id) {
+      const row = submissions.find(r => r.id === id);
+      if (!row) return;
+
+      let html = `<div class="detail-view">
+        <button class="back-btn" onclick="renderAdminDash()">← Back to list</button>
+        <div class="detail-header">
+          <div>
+            <div class="detail-name">${row.fullName}</div>
+            <div class="detail-matric">${row.matricNumber}</div>
+          </div>
+          <span class="status-pill status-${row.status.toLowerCase().replace(" ", "")}">${row.status || 'New'}</span>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-field"><div class="detail-label">Department</div><div class="detail-value">${row.department === "Other" ? row.otherDepartment : row.department}</div></div>
+          <div class="detail-field"><div class="detail-label">College</div><div class="detail-value">${row.college === "Other" ? row.otherCollege : row.college}</div></div>
+          <div class="detail-field"><div class="detail-label">Level</div><div class="detail-value">${row.level}</div></div>
+          <div class="detail-field"><div class="detail-label">Final Year</div><div class="detail-value">${row.isFinalYear}</div></div>
+          <div class="detail-field"><div class="detail-label">WhatsApp</div><div class="detail-value">${row.whatsapp}</div></div>
+          <div class="detail-field"><div class="detail-label">Alt Phone</div><div class="detail-value">${row.altPhone}</div></div>
+          <div class="detail-field"><div class="detail-label">Email</div><div class="detail-value">${row.email}</div></div>
+          <div class="detail-field"><div class="detail-label">Review From</div><div class="detail-value">${row.reviewStartLevel ? row.reviewStartLevel + ' level' : ''}</div></div>
+          <div class="detail-field"><div class="detail-label">Needs Prev. Help</div><div class="detail-value">${row.needsPrevLevelHelp}</div></div>
+          <div class="detail-field"><div class="detail-label">Previous Levels</div><div class="detail-value">${(row.prevLevels || []).join(", ")}</div></div>
+          <div class="detail-field"><div class="detail-label">Previously Submitted</div><div class="detail-value">${row.previouslySubmitted}</div></div>
+          <div class="detail-field"><div class="detail-label">Has All Docs</div><div class="detail-value">${row.hasAllDocuments}</div></div>
+        </div>
+        <div class="detail-field" style="margin-top: 18px;"><div class="detail-label">Outstanding Issues</div><div class="detail-value">${row.outstandingIssues || '—'}</div></div>
+        <div class="detail-field"><div class="detail-label">Drive Folder</div><div class="detail-value">${row.driveLink ? `<a href="${row.driveLink}" target="_blank" style="color: var(--brass);">${row.driveLink}</a>` : '—'}</div></div>
+        <div class="detail-field"><div class="detail-label">Submitted</div><div class="detail-value">${new Date(row.submittedAt).toLocaleString()}</div></div>
+        <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);">
+          <div class="detail-label">Update Status</div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+            ${["New", "In Review", "Approved", "On Hold"].map(s => `
+              <button style="padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-family: 'IBM Plex Sans', sans-serif; font-weight: 500; border: 1.5px solid ${row.status === s ? 'var(--navy)' : 'var(--line)'}; background: ${row.status === s ? 'var(--navy)' : 'white'}; color: ${row.status === s ? 'white' : 'var(--ink)'}; cursor: pointer;" onclick="updateStatus('${id}', '${s}');">${s}</button>
+            `).join('')}
+          </div>
+        </div>
+      </div>`;
+
+      document.getElementById("adminPanel").innerHTML = html;
+    }
+
+    async function updateStatus(id, status) {
+      const idx = submissions.findIndex(r => r.id === id);
+      if (idx !== -1) {
+        submissions[idx].status = status;
+        await window.storage.set(id, JSON.stringify(submissions[idx]), true);
+        renderSubmissionDetail(id);
+      }
+    }
+
+    function render() {
+      if (currentView === "student") {
+        document.getElementById("studentForm").classList.remove("hidden");
+        document.getElementById("adminPanel").classList.add("hidden");
+        renderStudentForm();
+      } else {
+        renderAdmin();
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
